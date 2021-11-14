@@ -1,7 +1,7 @@
 {
-    "sketch": "src\\digital-bubble.ino",
-    "output": "./build",
-    "configuration": "LTO=enable,TimerClockSource=default,chip=85,clock=8internal,eesave=aenable,bod=disable,millis=enabled",
-    "board": "ATTinyCore:avr:attinyx5",
-    "port": "COM19"
+    "sketch": "DigitalBubble\\DigitalBubble.ino",
+    "configuration": "bootloader=uart0,eeprom=keep,variant=modelP,BOD=disabled,LTO=Os,clock=8MHz_internal",
+    "board": "MiniCore:avr:328",
+    "port": "COM18",
+    "output": "build"
 }
