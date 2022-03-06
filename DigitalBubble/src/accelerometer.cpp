@@ -17,19 +17,17 @@ void BMI160Accelerometer::init()
     BMI160.begin(BMI160GenClass::I2C_MODE, MPU_ADDRESS);
 }
 
-// Get raw values from sensor and adapt axis orientation differences
 void BMI160Accelerometer::getRawAccel(int16_t& rawX, int16_t& rawY, int16_t& rawZ)
 {
-    int16_t sensorX, sensorY, sensorZ;
-
-    BMI160.getAcceleration(&sensorX, &sensorY, &sensorZ);
-
-    rawX = sensorZ;
-    rawY = sensorY;
-    rawZ = -sensorX;
+    // perform any axis swap or inversion to comply with following axis order:
+    // (level laying flat on 'wide' side)
+    // x facing front
+    // y facing left
+    // z facing top
+    BMI160.getAcceleration(&rawX, &rawY, &rawZ);
 }
 
-double BMI160Accelerometer::convertToGAccel(int16_t rawAccel)
+double BMI160Accelerometer::convertRawToGAccel(int16_t rawAccel)
 {
     return rawAccel / G;
 }
@@ -40,9 +38,9 @@ void BMI160Accelerometer::getGAccel(double& acc_x, double& acc_y, double& acc_z)
 
     getRawAccel(rawX, rawY, rawZ);
 
-    acc_x = convertToGAccel(rawX);
-    acc_y = convertToGAccel(rawY);
-    acc_z = convertToGAccel(rawZ);
+    acc_x = convertRawToGAccel(rawX);
+    acc_y = convertRawToGAccel(rawY);
+    acc_z = convertRawToGAccel(rawZ);
 
 #ifdef DEBUG_ACCEL
     Serial.print("acc_x:");

@@ -21,7 +21,7 @@ class BMI160Accelerometer : public Accelerometer
         const double G = 16384.0;
 
         void getRawAccel(int16_t& rawX, int16_t& rawY, int16_t& rawZ);
-        double convertToGAccel(int16_t rawAccel);
+        double convertRawToGAccel(int16_t rawAccel);
 };
 
 #endif
